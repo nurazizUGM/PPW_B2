@@ -9,4 +9,9 @@ class Buku extends Model
 {
     use HasFactory;
     protected $table = 'books';
+
+    // make tgl_terbit as date
+    protected $casts = [
+        'tgl_terbit' => 'date',
+    ];
 }

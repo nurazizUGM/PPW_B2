@@ -19,11 +19,22 @@
                     <td>{{ $buku->id }}</td>
                     <td>{{ $buku->judul }}</td>
                     <td>{{ $buku->penulis }}</td>
-                    <td>{{ 'Rp. ' . number_format($buku->harga, 2, ',', '.') }}</td>
-                    <td>{{ date('d/m/Y', strtotime($buku->tgl_terbit)) }}</td>
-                    <td></td>
+                    <td>Rp. {{ number_format($buku->harga, 2, ',', '.') }}</td>
+                    {{-- tanpa library --}}
+                    {{-- <td>{{ date('d/m/Y', strtotime($buku->tgl_terbit)) }}</td> --}}
+
+                    {{-- casting via model --}}
+                    {{-- <td>{{ $buku->tgl_terbit->format('d/m/Y') }}</td> --}}
+
+                    {{-- dengan carbon --}}
+                    <td>{{ \Carbon\Carbon::parse($buku->tgl_terbit)->format('d/m/Y') }}</td>
                 </tr>
             @endforeach
         </tbody>
+        <caption>
+            <span>Total: {{ $jumlah }} buku</span>
+            <br>
+            <span>Total harga: Rp. {{ number_format($total_harga, 2, ',', '.') }}</span>
+        </caption>
     </table>
 @endsection
