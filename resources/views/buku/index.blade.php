@@ -14,9 +14,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_buku as $index=>$buku)
+            {{-- @foreach ($data_buku as $buku) --}}
+            @foreach ($data_buku->values() as $i => $buku)
                 <tr>
-                    <td>{{ $index+1 }}</td>
+                    {{-- <td>{{ $loop->iteration }}</td> --}}
+                    <td>{{ $i + 1 }}</td>
                     <td>{{ $buku->judul }}</td>
                     <td>{{ $buku->penulis }}</td>
                     <td>Rp. {{ number_format($buku->harga, 2, ',', '.') }}</td>

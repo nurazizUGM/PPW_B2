@@ -12,7 +12,7 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $data_buku = Buku::all()->sortBy('id', SORT_DESC);
+        $data_buku = Buku::all()->sortByDesc('id');
         $jumlah = $data_buku->count();
         $total_harga = $data_buku->sum('harga');
 
