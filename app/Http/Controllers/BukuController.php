@@ -24,7 +24,7 @@ class BukuController extends Controller
      */
     public function create()
     {
-        //
+        return view('buku.create');
     }
 
     /**
@@ -32,7 +32,21 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $buku = $request->validate([
+        //     'judul' => 'required',
+        //     'penulis' => 'required',
+        //     'tgl_terbit' => 'required',
+        //     'harga' => 'required',
+        // ]);
+
+        Buku::create([
+            'judul' => $request->judul,
+            'penulis' => $request->penulis,
+            'tgl_terbit' => $request->tgl_terbit,
+            'harga' => $request->harga,
+        ]);
+        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil ditambahkan');
+        return redirect()->route('buku.index');
     }
 
     /**
@@ -48,22 +62,44 @@ class BukuController extends Controller
      */
     public function edit(Buku $buku)
     {
-        //
+        return view('buku.edit', compact('buku'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Buku $buku)
+    // public function update(Request $request, Buku $buku)
+    public function update(Request $request, $buku)
     {
-        //
+        // $data_buku = $request->validate([
+        //     'judul' => 'required',
+        //     'penulis' => 'required',
+        //     'tgl_terbit' => 'required',
+        //     'harga' => 'required',
+        // ]);
+
+
+
+        $buku = Buku::find($buku);
+        $buku->update([
+            'judul' => $request->judul,
+            'penulis' => $request->penulis,
+            'tgl_terbit' => $request->tgl_terbit,
+            'harga' => $request->harga,
+        ]);
+        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil diubah');
+        return redirect()->route('buku.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Buku $buku)
+    // public function destroy($id, Buku $buku)
+    public function destroy($buku)
     {
-        //
+        $buku = Buku::find($buku);
+        $buku->delete();
+        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil dihapus');
+        return redirect()->route('buku.index');
     }
 }
