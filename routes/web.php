@@ -26,8 +26,6 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
 Route::get('/buku/create', [BukuController::class, 'create'])->name('buku.create');
 Route::post('/buku', [BukuController::class, 'store'])->name('buku.store');
-Route::get('/buku/{buku}/edit', [BukuController::class, 'edit'])->name('buku.edit');
-Route::put('/buku/{buku}', [BukuController::class, 'update'])->name('buku.update');
-Route::delete('/buku/{buku}', [BukuController::class, 'destroy'])->name('buku.destroy');
-
-// Route::resource('buku', BukuController::class);
+Route::get('/buku/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
+Route::put('/buku/{id}', [BukuController::class, 'update'])->name('buku.update');
+Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');

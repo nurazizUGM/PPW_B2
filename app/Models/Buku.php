@@ -18,7 +18,7 @@ class Buku extends Model
     ];
 
     // make tgl_terbit as date
-    protected $casts = [
-        'tgl_terbit' => 'date',
-    ];
+    // protected $casts = [
+    //     'tgl_terbit' => 'date',
+    // ];
 }

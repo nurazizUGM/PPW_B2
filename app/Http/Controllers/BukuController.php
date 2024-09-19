@@ -32,20 +32,13 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        // $buku = $request->validate([
-        //     'judul' => 'required',
-        //     'penulis' => 'required',
-        //     'tgl_terbit' => 'required',
-        //     'harga' => 'required',
-        // ]);
-
         Buku::create([
             'judul' => $request->judul,
             'penulis' => $request->penulis,
             'tgl_terbit' => $request->tgl_terbit,
             'harga' => $request->harga,
         ]);
-        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil ditambahkan');
+
         return redirect()->route('buku.index');
     }
 
@@ -60,46 +53,34 @@ class BukuController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Buku $buku)
+    public function edit($id)
     {
+        $buku = Buku::find($id);
         return view('buku.edit', compact('buku'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, Buku $buku)
-    public function update(Request $request, $buku)
+    public function update(Request $request, $id)
     {
-        // $data_buku = $request->validate([
-        //     'judul' => 'required',
-        //     'penulis' => 'required',
-        //     'tgl_terbit' => 'required',
-        //     'harga' => 'required',
-        // ]);
-
-
-
-        $buku = Buku::find($buku);
+        $buku = Buku::find($id);
         $buku->update([
             'judul' => $request->judul,
             'penulis' => $request->penulis,
             'tgl_terbit' => $request->tgl_terbit,
             'harga' => $request->harga,
         ]);
-        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil diubah');
         return redirect()->route('buku.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy($id, Buku $buku)
-    public function destroy($buku)
+    public function destroy($id)
     {
-        $buku = Buku::find($buku);
+        $buku = Buku::find($id);
         $buku->delete();
-        // return redirect()->route('buku.index')->with('success', 'Data buku berhasil dihapus');
         return redirect()->route('buku.index');
     }
 }
