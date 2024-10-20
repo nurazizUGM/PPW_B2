@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 
 class LoginRegisterController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest')->except(['logout', 'dashboard']);
-    }
+    public function __construct() {}
     public function register()
     {
         return view('auth.register');
@@ -57,17 +54,6 @@ class LoginRegisterController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
-    }
-
-    public function dashboard()
-    {
-        if (auth()->check()) {
-            return view('auth.dashboard');
-        } else {
-            return redirect()->route('login')->with([
-                'error' => 'You are not logged in!',
-            ]);
-        }
     }
 
     public function logout()

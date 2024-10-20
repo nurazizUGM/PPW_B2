@@ -1,4 +1,4 @@
-@extends('auth.layout')
+@extends('layout')
 @section('content')
     <div class="container p-5">
         <form method="POST" action="{{ route('store') }}">
