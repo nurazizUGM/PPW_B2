@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 
 class LoginRegisterController extends Controller
 {
-    public function __construct() {}
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
     public function register()
     {
         return view('auth.register');
@@ -31,7 +34,7 @@ class LoginRegisterController extends Controller
         auth()->login($user);
         session()->regenerate();
 
-        return redirect()->route('dashboard')->with('success', 'You are registered!');
+        return redirect()->route('buku.index')->with('success', 'You are registered!');
     }
 
     public function login()
@@ -48,7 +51,7 @@ class LoginRegisterController extends Controller
 
         if (auth()->attempt($credentials)) {
             session()->regenerate();
-            return redirect()->route('dashboard')->with('success', 'You are logged in!');
+            return redirect()->route('buku.index')->with('success', 'You are logged in!');
         }
 
         return back()->withErrors([
