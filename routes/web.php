@@ -27,5 +27,3 @@ Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
 });
-
-Route::view('/auth.layout', 'auth.layout');
