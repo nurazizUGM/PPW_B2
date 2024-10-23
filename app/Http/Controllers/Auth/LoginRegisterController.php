@@ -34,7 +34,7 @@ class LoginRegisterController extends Controller
         auth()->login($user);
         session()->regenerate();
 
-        return redirect()->route('buku.index')->with('success', 'You are registered!');
+        return redirect()->route('dashboard')->with('success', 'You are registered!');
     }
 
     public function login()
@@ -51,7 +51,7 @@ class LoginRegisterController extends Controller
 
         if (auth()->attempt($credentials)) {
             session()->regenerate();
-            return redirect()->route('buku.index')->with('success', 'You are logged in!');
+            return redirect()->route('dashboard')->with('success', 'You are logged in!');
         }
 
         return back()->withErrors([

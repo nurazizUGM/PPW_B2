@@ -17,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/buku');
 
-Route::resource('buku', BukuController::class)->middleware('auth');
+Route::resource('buku', BukuController::class)->middleware(['auth', 'admin']);
+
 Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
     Route::get('/logout', 'logout')->name('logout');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
 });
+
+Route::redirect('/', '/dashboard');
