@@ -28,5 +28,5 @@ Route::controller(LoginRegisterController::class)->group(function () {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
 });
 
-Route::view('/dashboard', 'dashboard')->name('dashboard');
+Route::view('/dashboard', 'dashboard')->middleware('auth')->name('dashboard');
 Route::redirect('/', '/dashboard');
