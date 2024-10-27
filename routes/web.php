@@ -26,7 +26,7 @@ Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/login', 'login')->name('login');
     Route::get('/logout', 'logout')->name('logout');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
 });
 
+Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::redirect('/', '/dashboard');
