@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class BukuController extends Controller
 {
@@ -32,11 +34,30 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'judul' => 'required|string',
+            'penulis' => 'required|string',
+            'tgl_terbit' => 'required|date',
+            'harga' => 'required|integer',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photo->storeAs('public/buku', $photo->hashName());
+
+            // $image = Image::read($photo);
+            // $image->cover(200, 200, 'center'); // create square image
+            // $image->scale(200, 200); // scale image to 200x200 but keep aspect ratio
+            // $image->toJpeg()->save(storage_path('app/public/buku/' . $photo->hashName()));
+        }
+
         Buku::create([
             'judul' => $request->judul,
             'penulis' => $request->penulis,
             'tgl_terbit' => $request->tgl_terbit,
             'harga' => $request->harga,
+            'photo' => isset($photo) ? $photo->hashName() : null,
         ]);
 
         return redirect()->route('buku.index');
@@ -64,7 +85,28 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'judul' => 'required|string',
+            'penulis' => 'required|string',
+            'tgl_terbit' => 'required|date',
+            'harga' => 'required|integer',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $buku = Buku::find($id);
+
+        if ($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $photo->storeAs('public/buku', $photo->hashName());
+
+            if ($buku->photo && Storage::exists('public/buku/' . $buku->photo)) {
+                Storage::delete('public/buku/' . $buku->photo);
+            }
+            $buku->update([
+                'photo' => $photo->hashName(),
+            ]);
+        }
+
         $buku->update([
             'judul' => $request->judul,
             'penulis' => $request->penulis,
@@ -80,6 +122,10 @@ class BukuController extends Controller
     public function destroy($id)
     {
         $buku = Buku::find($id);
+
+        if ($buku->photo && Storage::exists('public/buku/' . $buku->photo)) {
+            Storage::delete('public/buku/' . $buku->photo);
+        }
         $buku->delete();
         return redirect()->route('buku.index');
     }

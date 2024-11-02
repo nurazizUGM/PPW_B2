@@ -15,6 +15,7 @@ class Buku extends Model
         'penulis',
         'tgl_terbit',
         'harga',
+        'photo'
     ];
 
     // make tgl_terbit as date

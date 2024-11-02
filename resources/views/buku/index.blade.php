@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <td>Sampul</td>
                     <th>Judul</th>
                     <th>Penulis</th>
                     <th>Harga</th>
@@ -21,6 +22,11 @@
                     <tr>
                         {{-- <td>{{ $loop->iteration }}</td> --}}
                         <td>{{ $i + 1 }}</td>
+                        <td>
+                            @if ($buku->photo)
+                                <img src="{{ asset('storage/buku/' . $buku->photo) }}" alt="" width="150px">
+                            @endif
+                        </td>
                         <td>{{ $buku->judul }}</td>
                         <td>{{ $buku->penulis }}</td>
                         <td>Rp. {{ number_format($buku->harga, 2, ',', '.') }}</td>

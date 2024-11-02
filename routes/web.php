@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/logout', 'logout')->name('logout');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
 });
+
+Route::resource('user', UserController::class)->middleware(['auth', 'admin']);
 
 Route::view('/dashboard', 'dashboard')->middleware('auth')->name('dashboard');
 Route::redirect('/', '/dashboard');
