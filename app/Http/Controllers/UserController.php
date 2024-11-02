@@ -105,6 +105,10 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
+        if ($user->photo && Storage::exists('public/' . $user->photo)) {
+            Storage::delete('public/' . $user->photo);
+        }
+
         $user->delete();
         return redirect()->route('user.index')->with('success', 'User deleted successfully');
     }
