@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMailJob;
+use App\Mail\SendEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class LoginRegisterController extends Controller
 {
@@ -25,11 +30,22 @@ class LoginRegisterController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
+        DB::beginTransaction();
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
+        if (checkdnsrr(explode('@', $request->email)[1], 'MX')) {
+            $email = new SendEmail([
+                'name' => $request->name,
+                'email' => $request->email,
+                'subject' => 'Welcome to our website!',
+            ]);
+            SendMailJob::dispatch($request->email, $email);
+        }
+        DB::commit();
 
         auth()->login($user);
         session()->regenerate();
