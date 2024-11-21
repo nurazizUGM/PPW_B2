@@ -1,0 +1,187 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/buku": {
+            "get": {
+                "tags": [
+                    "Buku"
+                ],
+                "operationId": "ad144718c94735e4b410f4451f86cbf1",
+                "responses": {
+                    "200": {
+                        "description": "Get all data buku",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "judul": {
+                                                "type": "string",
+                                                "example": "Belajar PHP"
+                                            },
+                                            "penulis": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            },
+                                            "harga": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 99.99
+                                            },
+                                            "tgl_terbit": {
+                                                "type": "integer",
+                                                "example": 2021
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2021-08-01T00:00:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2021-08-01T00:00:00.000000Z"
+                                            },
+                                            "photo": {
+                                                "type": "string",
+                                                "example": "buku.jpg"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "example": [
+                                    {
+                                        "id": 1,
+                                        "judul": "Ducimus blanditiis",
+                                        "penulis": "Pariatur Vel et cor",
+                                        "harga": "97",
+                                        "tgl_terbit": "1984-07-23",
+                                        "created_at": "2024-11-20T02:35:11.000000Z",
+                                        "updated_at": "2024-11-20T02:35:11.000000Z",
+                                        "photo": "OFYOvtyCZW3oL3C29OurHKFRr6g0ysl0ssUuumIm.jpg"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Buku"
+                ],
+                "operationId": "17d1429cfe1ba64127b7794520e46c85",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "judul": {
+                                        "type": "string",
+                                        "example": "Belajar PHP"
+                                    },
+                                    "penulis": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "harga": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.99
+                                    },
+                                    "tgl_terbit": {
+                                        "type": "integer",
+                                        "example": 2021
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "buku.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Store data buku",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Data berhasil disimpan"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/greet": {
+            "get": {
+                "tags": [
+                    "Greet"
+                ],
+                "summary": "Greet a user",
+                "operationId": "cc6e5e6e5d9b60e2de887c36d09ca489",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "description": "First name",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "John",
+                                "Jane"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "description": "Last name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Buku",
+            "description": "Buku"
+        },
+        {
+            "name": "Greet",
+            "description": "Greet"
+        }
+    ]
+}
