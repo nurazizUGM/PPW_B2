@@ -19,6 +19,8 @@ COPY . .
 
 # Install dependencies
 RUN composer install
+RUN php artisan key:generate
+RUN php artisan vendor:publish --provider="L5Swagger\\L5SwaggerServiceProvider"
 
 # Run the application
 CMD ["/usr/local/bin/php", "index.php"]
