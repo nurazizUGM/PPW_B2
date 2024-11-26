@@ -76,6 +76,13 @@
                 $.ajax({
                     url: `{{ route('api.gallery.delete', ':id') }}`.replace(':id', id),
                     method: 'DELETE',
+                    error: function(response) {
+                        const alert = $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        ${response.statusText}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+                        $('#alert-box').append(alert);
+                    },
                     success: function(response) {
                         loadData();
                     }
@@ -85,13 +92,18 @@
 
         function loadData() {
             $('#loading-spinner').show();
+            $('#post-items').remove();
             $.ajax({
                 url: '{{ route('api.gallery.index') }}',
+                error: function() {
+                    $('#post-container').html('<p>Failed to load data</p>');
+                },
                 success: function(response) {
                     if (response.length == 0) {
                         $('#post-container').html('<p>No Post Found</p>');
                     } else {
-                        const container = $('<div class="w-100 d-flex overflow-x-auto gap-2"></div>');
+                        const container = $(
+                            '<div class="w-100 d-flex overflow-x-auto gap-2" id="post-items"></div>');
                         for (let post of response) {
                             container.append(`<div class="d-flex flex-column justify-center position-relative">
                             <a href="{{ asset('storage') }}/${post.picture}" data-lightbox="roadtrip"

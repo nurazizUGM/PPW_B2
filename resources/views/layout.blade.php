@@ -63,7 +63,7 @@
     </header>
 
     <main class="position-relative">
-        <div class="position-absolute z-1" style="top: 10px; right:10px">
+        <div class="position-absolute z-1" style="top: 10px; right:10px" id="alert-box">
             @session('success')
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session()->get('success') }}
