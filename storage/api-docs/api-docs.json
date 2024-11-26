@@ -58,19 +58,7 @@
                                         },
                                         "type": "object"
                                     }
-                                },
-                                "example": [
-                                    {
-                                        "id": 1,
-                                        "judul": "Ducimus blanditiis",
-                                        "penulis": "Pariatur Vel et cor",
-                                        "harga": "97",
-                                        "tgl_terbit": "1984-07-23",
-                                        "created_at": "2024-11-20T02:35:11.000000Z",
-                                        "updated_at": "2024-11-20T02:35:11.000000Z",
-                                        "photo": "OFYOvtyCZW3oL3C29OurHKFRr6g0ysl0ssUuumIm.jpg"
-                                    }
-                                ]
+                                }
                             }
                         }
                     }
@@ -135,6 +123,144 @@
                 }
             }
         },
+        "/api/gallery": {
+            "get": {
+                "tags": [
+                    "Gallery"
+                ],
+                "description": "Get all posts with picture",
+                "operationId": "f43620079a76c2c3b2ce527fe99c3e72",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "Impedit omnis vitae"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Nemo est velit sapie"
+                                            },
+                                            "picture": {
+                                                "type": "string",
+                                                "example": "posts/FZN9JEP3UYagtjMluLK8y74bMy0jWzNVzZb5Cz3i.jpg"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2024-11-05T19:07:54.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2024-11-05T19:07:54.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Gallery"
+                ],
+                "description": "Create new Post",
+                "operationId": "a008e5cea80c123e7654800a7d4093a1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "picture": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Post created successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/gallery/{id}": {
+            "delete": {
+                "tags": [
+                    "Gallery"
+                ],
+                "description": "Delete Post by ID",
+                "operationId": "4c2127cd3850b5284aa330b0e64a6761",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "Post deleted successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/greet": {
             "get": {
                 "tags": [
@@ -178,6 +304,10 @@
         {
             "name": "Buku",
             "description": "Buku"
+        },
+        {
+            "name": "Gallery",
+            "description": "Gallery"
         },
         {
             "name": "Greet",

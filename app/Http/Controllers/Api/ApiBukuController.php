@@ -29,18 +29,6 @@ class ApiBukuController extends Controller
                     new OAT\Property(property: 'photo', type: 'string', example: 'buku.jpg')
                 ]
             ),
-            example: [
-                [
-                    "id" => 1,
-                    "judul" => "Ducimus blanditiis",
-                    "penulis" => "Pariatur Vel et cor",
-                    "harga" => "97",
-                    "tgl_terbit" => "1984-07-23",
-                    "created_at" => "2024-11-20T02:35:11.000000Z",
-                    "updated_at" => "2024-11-20T02:35:11.000000Z",
-                    "photo" => "OFYOvtyCZW3oL3C29OurHKFRr6g0ysl0ssUuumIm.jpg"
-                ]
-            ]
         )
     )]
     public function index()

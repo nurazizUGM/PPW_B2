@@ -13,9 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-        $posts  = Post::whereNotNull('picture')->get();
-        return view('post.index', compact('posts'));
+        return view('post.index');
     }
 
     /**
